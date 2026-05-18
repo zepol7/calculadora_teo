@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    environment {
+        PROYECTO  = 'calculadora-demo'
+        COBERTURA = '75'
+    }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+                bat 'python --version'
+                bat 'pip --version'
+            }
+        }
+
+        stage('Instalar dependencias') {
+            steps {
+                bat 'pip install -r requirements.txt --quiet'
+                bat 'pip install pytest pytest-cov flake8 --quiet'
+                bat 'mkdir reports 2>nul || echo Carpeta ya existe'
+            }
+        }
+
+        stage('Analisis estatico') {
+            steps {
+                bat 'flake8 src\\ tests\\ --max-line-length=100 --statistics --count'
+            }
+        }
+
+        stage('Pruebas unitarias') {
+            steps {
+                bat """
+                    python -m pytest tests\\ -v ^
+                      --tb=short ^
+                      --junitxml=reports\\junit.xml ^
+                      --cov=src ^
+                      --cov-report=xml:reports\\coverage.xml ^
+                      --cov-report=html:reports\\htmlcov ^
+                      --cov-report=term-missing ^
+                      --cov-fail-under=%COBERTURA%
+                """
+            }
+            post {
+                always {
+                    junit 'reports\\junit.xml'
+                    publishHTML(target: [
+                        allowMissing         : false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll              : true,
+                        reportDir            : 'reports\\htmlcov',
+                        reportFiles          : 'index.html',
+                        reportName           : 'Cobertura de Codigo'
+                    ])
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline EXITOSO — Proyecto: ${env.PROYECTO}"
+        }
+        failure {
+            echo "Pipeline FALLIDO — Revisar los reportes"
+        }
+        always {
+            cleanWs()
+        }
+    }
+}
