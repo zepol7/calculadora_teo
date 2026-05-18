@@ -11,15 +11,15 @@ pipeline {
         stage('Checkout') {
             steps {
                 checkout scm
-                bat 'python --version'
-                bat 'pip --version'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" --version'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" pip --version'
             }
         }
 
         stage('Instalar dependencias') {
             steps {
-                bat 'pip install -r requirements.txt --quiet'
-                bat 'pip install pytest pytest-cov flake8 --quiet'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" pip install -r requirements.txt --quiet'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" pip install pytest pytest-cov flake8 --quiet'
                 bat 'mkdir reports 2>nul || echo Carpeta ya existe'
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage('Pruebas unitarias') {
             steps {
                 bat """
-                    python -m pytest tests\\ -v ^
+                    "C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m pytest tests\\ -v ^
                       --tb=short ^
                       --junitxml=reports\\junit.xml ^
                       --cov=src ^
