@@ -1,3 +1,5 @@
+# test/test_calculadora.py
+"""Pruebas unitarias para el modulo calculadora."""
 import pytest
 from src.calculadora import sumar, dividir, porcentaje, factorial
 
@@ -39,6 +41,7 @@ class TestPorcentaje:
     def test_porcentaje_valor_negativo(self):
         with pytest.raises(ValueError):
             porcentaje(-5, 100)
+
 
 class TestFactorial:
     def test_factorial_cinco(self):
