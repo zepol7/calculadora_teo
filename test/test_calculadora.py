@@ -52,3 +52,4 @@ class TestFactorial:
     def test_factorial_negativo(self):
         with pytest.raises(ValueError):
             factorial(-1)
+            
