@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         PROYECTO  = 'calculadora-demo'
+        PYTHON_CMD = 'C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe'
         COBERTURA = '75'
     }
 
@@ -12,14 +13,14 @@ pipeline {
             steps {
                 checkout scm
                 bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" --version'
-                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" pip --version'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m pip --version'
             }
         }
 
         stage('Instalar dependencias') {
             steps {
-                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" pip install -r requirements.txt --quiet'
-                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" pip install pytest pytest-cov flake8 --quiet'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m pip install -r requirements.txt --quiet'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m pip install pytest pytest-cov flake8 --quiet'
                 bat 'mkdir reports 2>nul || echo Carpeta ya existe'
             }
         }
