@@ -1,4 +1,3 @@
-"""Pruebas unitarias para el módulo calculadora."""
 import pytest
 from src.calculadora import sumar, dividir, porcentaje, factorial
 
