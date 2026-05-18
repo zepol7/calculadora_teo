@@ -27,7 +27,7 @@ pipeline {
 
         stage('Analisis estatico') {
             steps {
-                bat 'flake8 src\\ tests\\ --max-line-length=100 --statistics --count'
+                bat '"C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m flake8 src\\ tests\\ --max-line-length=100 --statistics --count'
             }
         }
 
