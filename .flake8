@@ -1,0 +1,9 @@
+# .flake8  (crear en C:\Proyectos\calculadora-demo\.flake8)
+[flake8]
+max-line-length = 100
+max-doc-length = 100
+exclude =
+    __pycache__,
+    venv,
+    .venv,
+    reports
