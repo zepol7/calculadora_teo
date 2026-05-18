@@ -1,6 +1,6 @@
 """Pruebas unitarias para el módulo calculadora."""
 import pytest
-from src.calculadora import sumar, restar, multiplicar, dividir, porcentaje, factorial
+from src.calculadora import sumar, dividir, porcentaje, factorial
 
 
 class TestSumar:
