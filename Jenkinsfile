@@ -34,7 +34,7 @@ pipeline {
         stage('Pruebas unitarias') {
             steps {
                 bat """
-                    "C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m pytest tests\\ -v ^
+                    "C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -m pytest test\\ -v ^
                       --tb=short ^
                       --junitxml=reports\\junit.xml ^
                       --cov=src ^
