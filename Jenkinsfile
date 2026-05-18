@@ -7,32 +7,34 @@ pipeline {
         COBERTURA = '75'
     }
 
-    stage('Limpiar formato') {
-    steps {
-        bat """
-            "C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -c "
-                import os
-                import glob
-
-                archivos = glob.glob('src/**/*.py', recursive=True) + glob.glob('test/**/*.py', recursive=True)
-                for ruta in archivos:
-                    with open(ruta, 'rb') as f:
-                        contenido = f.read()
-                    limpio = b'\\n'.join(linea.rstrip() for linea in contenido.splitlines()).rstrip() + b'\\n'
-                    if limpio != contenido:
-                        with open(ruta, 'wb') as f:
-                            f.write(limpio)
-                        print('Corregido:', ruta)
-                    else:
-                        print('OK:', ruta)
-                "
-                        """
-                    }
-                }
-
-
-
     stages {
+
+
+        stage('Limpiar formato') {
+            steps {
+                bat """
+                    "C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe" -c "
+        import os
+        import glob
+
+        archivos = glob.glob('src/**/*.py', recursive=True) + glob.glob('test/**/*.py', recursive=True)
+        for ruta in archivos:
+            with open(ruta, 'rb') as f:
+                contenido = f.read()
+            limpio = b'\\n'.join(linea.rstrip() for linea in contenido.splitlines()).rstrip() + b'\\n'
+            if limpio != contenido:
+                with open(ruta, 'wb') as f:
+                    f.write(limpio)
+                print('Corregido:', ruta)
+            else:
+                print('OK:', ruta)
+        "
+                """
+            }
+        }
+
+
+
 
         stage('Checkout') {
             steps {
