@@ -41,7 +41,6 @@ class TestPorcentaje:
         with pytest.raises(ValueError):
             porcentaje(-5, 100)
 
-
 class TestFactorial:
     def test_factorial_cinco(self):
         assert factorial(5) == 120
@@ -52,4 +51,3 @@ class TestFactorial:
     def test_factorial_negativo(self):
         with pytest.raises(ValueError):
             factorial(-1)
-            
