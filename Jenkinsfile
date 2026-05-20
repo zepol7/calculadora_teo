@@ -5,7 +5,8 @@ pipeline {
         PROYECTO  = 'calculadora-demo'
         PYTHON_CMD = 'C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe'
         COBERTURA = '75'
-        SONAR_HOST   = 'http://host.docker.internal:9000'
+        SONAR_URL = 'http://localhost:9000'
+        SONAR_TOKEN = 'squ_26bc00efc815c7f61fb63288d0ea5aa4eebbb67d'
 
     }
 
@@ -72,6 +73,7 @@ pipeline {
                           -Dsonar.sources=src ^
                           -Dsonar.tests=test ^
                           -Dsonar.language=py ^
+                          -Dsonar.token=%SONAR_TOKEN% ^
                           -Dsonar.python.coverage.reportPaths=reports/coverage.xml ^
                           -Dsonar.python.xunit.reportPath=reports/junit.xml ^
                           -Dsonar.host.url=http://localhost:9000 ^
