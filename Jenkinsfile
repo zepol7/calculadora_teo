@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        PROYECTO  = 'calculadora-demo'
+        PROYECTO  = 'Calculadora-Demo'
         PYTHON_CMD = 'C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe'
         COBERTURA = '75'
         SONAR_URL = 'http://localhost:9000'
