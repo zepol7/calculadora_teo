@@ -67,7 +67,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube-Local') {
                     bat """
-                        sonar-scanner ^
+                        "C:\\DevOps_TEO\\sonarqube\\sonar-scanner\\bin\\sonar-scanner.bat" ^
                           -Dsonar.projectKey=%PROYECTO% ^
                           -Dsonar.sources=src ^
                           -Dsonar.tests=test ^
