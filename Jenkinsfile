@@ -74,6 +74,7 @@ pipeline {
                           -Dsonar.language=py ^
                           -Dsonar.python.coverage.reportPaths=reports/coverage.xml ^
                           -Dsonar.python.xunit.reportPath=reports/junit.xml ^
+                          -Dsonar.host.url=http://localhost:9000 ^
                           -Dsonar.sourceEncoding=UTF-8
                     """
                 }
