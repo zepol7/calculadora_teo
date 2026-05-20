@@ -66,17 +66,16 @@ pipeline {
         stage('Analisis SonarQube') {
             steps {
                 withSonarQubeEnv('SonarQube-Local') {
-                    withSonarQubeInstallation('SonarQube-Scanner-5') {
-                        bat """
-                            sonar-scanner ^
-                              -Dsonar.projectKey=%PROYECTO% ^
-                              -Dsonar.sources=src ^
-                              -Dsonar.tests=tests ^
-                              -Dsonar.python.coverage.reportPaths=reports/coverage.xml ^
-                              -Dsonar.python.xunit.reportPath=reports/junit.xml ^
-                              -Dsonar.host.url=%SONAR_HOST%
-                        """
-                    }
+                    bat """
+                        sonar-scanner ^
+                          -Dsonar.projectKey=%PROYECTO% ^
+                          -Dsonar.sources=src ^
+                          -Dsonar.tests=test ^
+                          -Dsonar.language=py ^
+                          -Dsonar.python.coverage.reportPaths=reports/coverage.xml ^
+                          -Dsonar.python.xunit.reportPath=reports/junit.xml ^
+                          -Dsonar.sourceEncoding=UTF-8
+                    """
                 }
             }
         }
