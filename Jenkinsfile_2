@@ -2,10 +2,15 @@ pipeline {
     agent any
 
     environment {
-        PROYECTO  = 'calculadora-demo'
+        PROYECTO  = 'Calculadora-Demo'
         PYTHON_CMD = 'C:\\Users\\helio.lopez_davinci\\AppData\\Local\\Python\\bin\\python.exe'
         COBERTURA = '75'
+        SONAR_URL = 'http://localhost:9000'
+        SONAR_TOKEN = 'squ_26bc00efc815c7f61fb63288d0ea5aa4eebbb67d'
+
     }
+
+
 
     stages {
 
@@ -58,6 +63,36 @@ pipeline {
                 }
             }
         }
+
+        stage('Analisis SonarQube') {
+            steps {
+                withSonarQubeEnv('SonarQube-Local') {
+                    bat """
+                        "C:\\DevOps_TEO\\sonarqube\\sonar-scanner\\bin\\sonar-scanner.bat" ^
+                          -Dsonar.projectKey=%PROYECTO% ^
+                          -Dsonar.sources=src ^
+                          -Dsonar.tests=test ^
+                          -Dsonar.language=py ^
+                          -Dsonar.token=%SONAR_TOKEN% ^
+                          -Dsonar.python.coverage.reportPaths=reports/coverage.xml ^
+                          -Dsonar.python.xunit.reportPath=reports/junit.xml ^
+                          -Dsonar.host.url=http://localhost:9000 ^
+                          -Dsonar.sourceEncoding=UTF-8
+                    """
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
+
+
     }
 
     post {
